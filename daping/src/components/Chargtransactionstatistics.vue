@@ -43,7 +43,7 @@ export default {
         lineDraw(){
             let that = this
              //初始化ehcharts实例
-            this.myChart=echarts.init(document.getElementById("Chargtransactionstatistics"));
+            let myChart=echarts.init(document.getElementById("Chargtransactionstatistics"));
             //指定图表的配置项和数据
             var option = {
     backgroundColor: 'transparent',
@@ -368,7 +368,7 @@ export default {
                 y.max = max;
             });
             //使用刚刚指定的配置项和数据项显示图表
-            this.myChart.setOption(option);
+            myChart.setOption(option);
         },
         computeMax(value) {
             if (Math.floor(value) === 0) {  // 是小数

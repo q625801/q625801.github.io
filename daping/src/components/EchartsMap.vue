@@ -1,14 +1,22 @@
 <template>
-  <div class="hello" style="width:50%;height:580px">
-      <div style="padding: 0;margin:0 auto;">
-          <div id="myChart" style="width:100%;height:580px;transform: rotate3d(1, 0, 0, 45deg);"></div>
-      </div>
-  </div>
+    <div class="wrap-map">
+        <div style="width:100%;position:absolute;z-index:999">
+            <div id="myChart" style="width:100%;height:680px;margin:0 auto;transform: rotate3d(1, 0, 0, 20deg);"></div>
+        </div>
+        <div class="echarts-map">
+            
+        </div>
+        
+    </div>
+  
 </template>
 
 <script>
 import * as echarts from 'echarts';
 import '../assets/china.js'
+import regionColor from './region.js'
+import Bg from '../assets/bg-03.png'
+import Pic from '../assets/pic-04.png'
 export default {
   name: 'hello',
   data () {
@@ -22,365 +30,444 @@ export default {
           ["武汉",10,20,30],
           ["浙江",20,10,30],
       ],
-      yList:[100]
+      yList:[100],
+      option:'',
+      regions:regionColor,
+      Bg:Bg,
+      Pic:Pic
     }
   },
   mounted(){
     this.drawMap();
   },
-  methods: {
+  methods: {    
     drawMap(){
-      this.myChart=echarts.init(document.getElementById("myChart"));
-    let option = {
-        backgroundColor: 'transparent',
+        let that = this;
+        let myChart=echarts.init(document.getElementById("myChart"));
+        let hwdata = [{
+            name: "景山公园",
+            value: ["116.489356", "39.94083"],
+            id: 4,
+            code: "110000Z0004",
+            type: "Z",
+            date: "2019-10-01",
+            city: "北京市"
+        }]
+        let ptzldata = [
+            {
+            name: "老城动物园",
+            value: ["114", "30"],
+            id: 3,
+            code: "110000D0003",
+            type: "D",
+            date: "2019-10-16",
+            city: "山西省",
+        }]
+        let hlhtdata = [
+            {
+            name: "新城植物园",
+            value: ["114.489356", "37.94083"],
+            id: 2,
+            code: "110000D0002",
+            type: "Z",
+            date: "2019-10-21",
+            city: "河北省",
+            }
+        ]
+    that.option = {
+        backgroundColor: "transparent",
         geo: [
             {
-                map: 'china',
-                top:'20%',
-                left:'20%',
-                zoom: 1.3,
-                aspectScale: 0.85,
-                layoutCenter: ["50%", "54%"], //地图位置
-                layoutSize: '100%',
-                z:1,
-                regions: [
-                    {
-                        name: "南海诸岛",
-                        itemStyle: {
-                            normal: {
-                                opacity: 0, // 透明度
-                            },
-                        },
-                    },
-                    {
-                        name: "内蒙古",
-                        itemStyle: {
-                            normal: {
-                                opacity: 0, // 透明度
-                            },
-                        },
-                    }
-                ],
+                show: true,
+                map: "china",
                 label: {
                     normal: {
-                        show: 0,
-                        textStyle: {
-                            color: '#fff'
-                        }
+                        show: false,
+                        color: "#fff"
                     },
                     emphasis: {
-                        show: 0,
+                        show: false
                     }
                 },
+                top:'6%',
+                left:'6%',
+                roam: false,
+                zoom: 1.1,
+                z:80,
                 itemStyle: {
                     normal: {
-                        areaColor: '#000',  // 地图样色
-                        borderColor: "rgb(41,233,246)",
-                        borderWidth: 5,
+                        borderWidth: 1, // 区域边框宽度
+                        borderColor: "#49a6e1", // 区域边框颜色
                     },
-                    emphasis: {
-                        areaColor: '#013C62',
-                        borderWidth: 5,
-                        
-                    }
+                    
                 },
+                regions: that.regions
             },
             {
-            map: 'china',
-            top:'20%',
-            left:'20%',
-            zoom: 1.3,
-            aspectScale: 0.85,
-            layoutCenter: ["50%", "54%"], //地图位置
-            layoutSize: '100%',
-            z:2,
-            regions: [
+                show: true,
+                map: "china",
+                saspectScale: 0.85,
+                layoutSize: '100%',
+                top:'9%',
+                left:'6%',
+                label: {
+                    normal: {
+                        show: false,
+                        color: "#fff"
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: false,
+                zoom: 1.1,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 2, // 区域边框宽度
+                        borderColor: "#15b1ff", // 区域边框颜色
+                        opacity:0.5,
+                    },
+                    
+                },
+                regions: that.regions
+            },
+            {
+                show: true,
+                map: "china",
+                saspectScale: 0.85,
+
+                layoutSize: '100%',
+                top:'12%',
+                left:'6%',
+                label: {
+                    normal: {
+                        show: false,
+                        color: "#fff"
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: false,
+                zoom: 1.1,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 2, // 区域边框宽度
+                        borderColor: "#15b1ff", // 区域边框颜色
+                        opacity:0.3,
+                    },
+                    
+                },
+                regions: that.regions
+            },
+            {
+                show: true,
+                map: "china",
+                saspectScale: 0.85,
+
+                layoutSize: '100%',
+                top:'15%',
+                left:'6%',
+                label: {
+                    normal: {
+                        show: false,
+                        color: "#fff"
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                roam: false,
+                zoom: 1.1,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 2, // 区域边框宽度
+                        borderColor: "#15b1ff", // 区域边框颜色
+                        opacity:0.1,
+                    },
+                    
+                },
+                regions: that.regions
+            },
+            {
+                show: true,
+                map: "china",
+                label: {
+                    normal: {
+                        show: false,
+                        color: "#fff"
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                top:'6%',
+                left:'6%',
+                roam: false,
+                zoom: 1.1,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 8, // 区域边框宽度
+                        borderColor: "#2edfff", // 区域边框颜色
+                    },
+                    
+                },
+                regions: that.regions
+            }
+        ],
+        legend: {
+            backgroundColor:'rgba(0,0,0,0.5)',
+            orient: 'vertical',
+            padding:15,
+            borderWidth:2,
+            borderColor:'#0265b0',
+            itemWidth:12,
+            left:'41%',
+            bottom:'11%',
+            textStyle:{
+                rich:{
+                    a:{
+                        fontSize:14,
+                        verticalAlign:'top',
+                        align:'center',
+                        padding:[0,0,0,11],
+                        lineHeight:13,
+                    },
+                }
+            },
+            formatter:  (name)=>{
+                let arr = [
+                    '{a|'+name+'}',
+                ]
+                return arr.join('\n')
+            },
+            data: [
                 {
-                    name: "福建",
-                    itemStyle: {
-                        normal: {
-                            borderColor: "transparent",  // 省份界线颜色
-                            borderWidth: 3,  // 省份界线的宽度
-                            areaColor:  'rgb(6,69,140)',  // 整个省份的颜色
-                        },
-                        emphasis: {
-                            areaColor: 'rgb(6,69,140)'
-                        }
+                    name: '红外接入',
+                    // 强制设置图形为圆。
+                    icon: 'circle',
+                    // 设置文本为红色
+                    textStyle: {
+                        color: '#ffc000'
+                    },
+                    itemStyle:{
+                        borderWidth: 10, // 区域边框宽度
+                        borderColor: "rgba(255,192,0,0.3)", // 区域边框颜色
                     },
                 },
                 {
-                    name: "南海诸岛",
-                    itemStyle: {
-                        normal: {
-                            opacity: 0, // 透明度
-                        },
-                        
+                    name: '平台直连',
+                    // 强制设置图形为圆。
+                    icon: 'circle',
+                    // 设置文本为红色
+                    textStyle: {
+                        color: '#008aff'
+                    },
+                    itemStyle:{
+                        borderWidth: 10, // 区域边框宽度
+                        borderColor: "rgba(0,138,255,0.3)", // 区域边框颜色
                     },
                 },
                 {
-                    name: "内蒙古",
-                    itemStyle: {
-                        normal: {
-                            opacity: 0, // 透明度
-                        },
+                    name: '互联互通',
+                    // 强制设置图形为圆。
+                    icon: 'circle',
+                    // 设置文本为红色
+                    textStyle: {
+                        color: '#00fbff'
+                    },
+                    itemStyle:{
+                        borderWidth: 10, // 区域边框宽度
+                        borderColor: "rgba(0,251,255,0.3)", // 区域边框颜色
                     },
                 }
             ],
-            label: {
-                normal: {
-                    show: 0,
-                    textStyle: {
-                        color: '#fff'
+            
+        },
+        tooltip : {},
+        grid:{
+            containLabel:true,
+            },
+        series: [     
+            {
+                name: '红外接入',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                itemStyle: {
+                    normal: {
+                        color: '#ffc000',
+                        borderWidth:10,
+                        borderColor:'rgba(255,192,0,0.29)',
+                        opacity:1
                     }
                 },
-                emphasis: {
-                    show: 0,
-                }
-            },
-            itemStyle: {
-                normal: {
-                    areaColor: '#013C62',  // 地图样色
-                    show: 0,
+                // rippleEffect: {
+                //     period: 4,
+                //     brushType: 'fill',
+                //     scale: 3,
+                //     color:'rgba(255,192,0,0.4)'
+                // },
+                data: hwdata,
+                z:2000,
+                symbolSize: function(val) {
+                    return 12
                 },
-                emphasis: {
-                    areaColor: '#013C62',
+                tooltip:{
+                    position: function (pos, params, dom, rect, size) {
+                        console.log(pos,params,dom,rect,size)
+                        let x = pos[0]
+                        let y = pos[1]
+                        return [rect.x+15,rect.y-100];
+                    },
+                    formatter:function(params){
+
+                    }
+                },
+                showEffectOn: 'render', //加载完毕显示特效
+            },
+            {
+                name: '平台直连',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                itemStyle: {
+                    normal: {
+                        color: '#008aff',
+                        borderWidth:10,
+                        borderColor:'rgba(0,138,255,0.29)',
+                        opacity:1
+                    }
+                },
+                data: ptzldata,
+                z:2000,
+                symbolSize: function(val) {
+                    return 12
+                },
+                tooltip:{
+                    position: function (pos, params, dom, rect, size) {
+                        console.log(pos,params,dom,rect,size)
+                        let x = pos[0]
+                        let y = pos[1]
+                        return [rect.x+15,rect.y-100];
+                    },
+                },
+                showEffectOn: 'render', //加载完毕显示特效
+                
+            },
+            {
+                name: '互联互通',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                itemStyle: {
+                    normal: {
+                        color: '#00fbff',
+                        borderWidth:10,
+                        borderColor:'rgba(0,251,255,0.29)',
+                        opacity:1
+                    }
+                },
+                data: hlhtdata,
+                z:2000,
+                symbolSize: function(val) {
+                    return 12
+                },
+                showEffectOn: 'render', //加载完毕显示特效
+                tooltip:{
+                    position: function (pos, params, dom, rect, size) {
+                        console.log(pos,params,dom,rect,size)
+                        let x = pos[0]
+                        let y = pos[1]
+                        return [rect.x+15,rect.y-100];
+                    },
                 }
             },
-        }
-        ],
-        series: [
+            {
+                name: "报警点位",
+                type: "scatter",
+                coordinateSystem: "geo",
+                hoverAnimation: false,
+                symbolSize: [24, 30],
+                tooltip:{
+                    confine:true
+                },
+                label: {
+                    show: true,
+                    width:212,
+                    height:145,
+                    position: [18, -85],
+                    padding:[0,0,0,70],
+                    color: "#fff",
+                    confine:true,
+                    backgroundColor: {
+                        image: that.Bg
+                    },
+                    rich:{
+                        a:{
+                            fontSize:14,
+                            verticalAlign:'center',
+                            align:'left',
+                            padding:[12,0,16,4],
+                        },
+                        b:{
+                            backgroundColor: {
+                                image: that.Pic,
+                            },
+                            width:90,
+                            height:90,
+                            align:'left',
+                        }
+                    },
+                    formatter:  (name)=>{
+                        let arr = [
+                            '{a|'+name.seriesName+'}',
+                            '{b|}',
+                        ]
+                        return `{a|${name.seriesName}}\n{b|}{c|状态\n{b|这么}}`
+                    }, 
+                    borderRadius: 6,
+                },
+                z:99,
+                data: [{
+                        name: "点位9",
+                        value: [125, 30.218085],
+                        alarmType: '类型1',
+                        alarmTime: '2020-12-1 12:00',
+                        alarmCount: '3'
+                    },
+                ]
+            }
         ]
-      };
-      setTimeout(this.renderEachCity, 0);
-      let throttledRenderEachCity = this.throttle(this.renderEachCity, 0);
-      this.myChart.on('geoRoam', throttledRenderEachCity);
-      this.myChart.setOption(option);
-    },
-    makeMapData(rawData) {
-        var mapData = [];
-        for (var i = 0; i < rawData.length; i++) {
-            var geoCoord = this.geoCoordMap[rawData[i][0]];
-            if (geoCoord) {
-                mapData.push({
-                    name: rawData[i][0],
-                    value: geoCoord.concat(rawData[i].slice(1))
-                });
+    };
+        myChart.setOption(that.option);
+        // myChart.dispatchAction({
+        //             type: "showTip",
+        //             seriesIndex: 0, //第几条series
+        //             dataIndex: 0 //第几个tooltip
+        //         });
+                // 高亮指定的散点
+        myChart.on("click", params => {
+            if (params.componentType === "series" && params.componentSubType === "scatter") {
+                const index = params.dataIndex;
+                that.option.series.push()
+            myChart.setOption(that.option);
+                // 取消所有散点高亮
+                // that.myChart.dispatchAction({
+                //     type: "downplay",
+                //     seriesIndex: 0 //第几条series
+                // });
+                // // 显示指定data 的tooltip
+                // that.myChart.dispatchAction({
+                //     type: "showTip",
+                //     seriesIndex: 0, //第几条series
+                //     dataIndex: index //第几个tooltip
+                // });
+                // // 高亮指定的散点
+                // that.myChart.dispatchAction({
+                //     type: "highlight",
+                //     seriesIndex: 0, //第几条series
+                //     dataIndex: index //第几个tooltip
+                // });
             }
-        }
-        return mapData;
-    },
-    renderEachCity() {
-        let option = {
-            xAxis: [],
-            yAxis: [],
-            grid: [],
-            series: []
-        };
-        let dom = 200;
-        let barWidth = dom / 20;
-        let that = this;
-        echarts.util.each(that.rawData, function(dataItem, idx) {
-            let geoCoord = that.geoCoordMap[dataItem[0]];
-            let coord = that.myChart.convertToPixel('geo', geoCoord);
-            idx += '';
-
-            let inflationData = [30];
-            option.xAxis.push({
-                id: idx,
-                gridId: idx,
-                type: 'category',
-                name: '', //dataItem[0] 柱状体底部名称
-                nameLocation: 'middle',
-                nameGap: 3,
-                splitLine: {
-                    show: false
-                },
-                axisTick: {
-                    show: false
-                },
-                axisLabel: {
-                    show: false
-                },
-                axisLine: {
-                    onZero: false,
-                    lineStyle: {
-                        color: '#666'
-                    }
-                },
-                // data: xAxisCategory,
-                data: ["数据A"],
-                z: 5
-
-            });
-            option.yAxis.push({
-                id: idx,
-                gridId: idx,
-                splitLine: {
-                    show: false
-                },
-                axisTick: {
-                    show: false
-                },
-                axisLabel: {
-                    show: false
-                },
-                axisLine: {
-                    show: false,
-                    lineStyle: {
-                        color: '#1C70B6'
-                    }
-                },
-                z: 5
-            });
-            option.grid.push({
-                id: idx,
-                width: 30,
-                height: 40,
-                left: coord[0] - 15,
-                top: coord[1] - 15,
-                z: 100
-            });
-            option.series.push(
-                {
-            type: 'map',
-            mapType: 'china',
-            aspectScale: 0.85,
-            layoutCenter: ["50%", "50%"], //地图位置
-            layoutSize: '100%',
-            zoom: 1.3, //当前视角的缩放比例
-            // roam: true, //是否开启平游或缩放
-            scaleLimit: { //滚轮缩放的极限控制
-                min: 1,
-                max: 2
-            },
-            z:88,
-            itemStyle: {
-                normal: {
-                    areaColor: '#0c274b',
-                    borderColor: '#1cccff',
-                    borderWidth: 1.5
-                },
-                emphasis: {
-                    areaColor: '#02102b',
-                    label: {
-                        show:false,//是否显示 省份文字
-                    }
-
-                }
-            },
-            data:[{ name: "南海诸岛",  
-              itemStyle: {  
-                normal: {opacity: 0}  
-              }  
-            }]
-
-
-        },
-                {
-            type: 'bar',
-            barWidth: barWidth,
-            id: idx,
-                    xAxisId: idx,
-                    yAxisId: idx,
-            z: 200,
-            itemStyle: {
-                normal: {
-                    color: function(params) {
-                        return 'rgb(36,246,251)';
-                    }
-                }
-            },
-            label: {
-                show: false,
-                position: [barWidth / 2, -(barWidth + 20)],
-                color: '#ffffff',
-                fontSize: 12,
-                fontStyle: 'bold',
-                align: 'center',
-            },
-            data: that.yList
-        },
-        {
-            z: 200,
-            type: 'pictorialBar',
-            data: that.yList,
-            xAxisId: idx,
-            yAxisId: idx,
-            symbol: 'diamond',
-            symbolOffset: [0, '50%'],
-            symbolSize: [barWidth, barWidth * 0.5],
-            itemStyle: {
-                normal: {
-                    color: function(params) {
-                        return 'rgb(36,246,251)';
-                    },
-                }
-            },
-        },
-        {
-            z: 200,
-            type: 'pictorialBar',
-            xAxisId: idx,
-            yAxisId: idx,
-            symbolPosition: 'end',
-            data: that.yList,
-            symbol: 'diamond',
-            symbolOffset: [0, '-50%'],
-            symbolSize: [barWidth, barWidth * 0.5],
-            itemStyle: {
-                normal: {
-                    borderWidth: 0,
-                    color: function(params) {
-                        return 'rgb(36,246,251)';
-                    },
-
-                }
-            },
-        }
-        );
         });
-        console.log(option)
-        this.myChart.setOption(option);
-    },
-    throttle(fn, delay, debounce) {
-        var currCall;
-        var lastCall = 0;
-        var lastExec = 0;
-        var timer = null;
-        var diff;
-        var scope;
-        var args;
-
-        delay = delay || 0;
-
-        function exec() {
-            lastExec = (new Date()).getTime();
-            timer = null;
-            fn.apply(scope, args || []);
-        }
-
-        var cb = function() {
-            currCall = (new Date()).getTime();
-            scope = this;
-            args = arguments;
-            diff = currCall - (debounce ? lastCall : lastExec) - delay;
-
-            clearTimeout(timer);
-
-            if (debounce) {
-                timer = setTimeout(exec, delay);
-            } else {
-                if (diff >= 0) {
-                    exec();
-                } else {
-                    timer = setTimeout(exec, -diff);
-                }
-            }
-
-            lastCall = currCall;
-        };
-
-        return cb;
     }
   }
 }
@@ -388,18 +475,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.wrap-map{
+    position: relative;
+    width: 100%;
+    height:830px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.echarts-map{
+    width:51%;
+    height:830px;
+    background: url(../assets/bg-04.png) top left no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
+

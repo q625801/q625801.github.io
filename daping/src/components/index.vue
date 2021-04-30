@@ -1,10 +1,12 @@
 <template>
     <div class="wrap">
         <header class="e-header"></header>
-        <echarts-map></echarts-map>
-        <div class="line-bar clear">
-            <chargdataanalysis></chargdataanalysis>
-            <chargtransactionstatistics></chargtransactionstatistics>
+        <div class="wrap-echarts">
+            <echarts-map></echarts-map>
+            <div class="line-bar clear">
+                <chargdataanalysis></chargdataanalysis>
+                <chargtransactionstatistics></chargtransactionstatistics>
+            </div>
         </div>
     </div>
 </template>
@@ -39,6 +41,7 @@ export default {
 .wrap{
     background:url(../assets/bg-01.jpg) center no-repeat;
     background-size: 100% 100%;
+    height: 1080px;
 }
 .clear{
     overflow: hidden;
@@ -54,5 +57,14 @@ export default {
 }
 .line-bar{
     padding: 0 40px 36px;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 7px;
+    left: 0;
+}
+.wrap-echarts{
+    position: relative;
+    height: 995px;
 }
 </style>
