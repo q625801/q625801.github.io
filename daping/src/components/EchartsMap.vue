@@ -6,7 +6,10 @@
         <div class="echarts-map">
             
         </div>
-        
+        <div ref="aaa" class="map-nav">
+           <span>全国站点总览</span>
+        </div>
+        <div class="overviewdata"></div>
     </div>
   
 </template>
@@ -40,7 +43,10 @@ export default {
   mounted(){
     this.drawMap();
   },
-  methods: {    
+  methods: {
+      lookVideoGo(){
+          console.log("1111")
+      },
     drawMap(){
         let that = this;
         let myChart=echarts.init(document.getElementById("myChart"));
@@ -72,6 +78,15 @@ export default {
             type: "Z",
             date: "2019-10-21",
             city: "河北省",
+            },
+            {
+            name: "新城植物园",
+            value: ["110.489356", "37.94083"],
+            id: 2,
+            code: "110000D0002",
+            type: "Z",
+            date: "2019-10-21",
+            city: "河北省",
             }
         ]
     that.option = {
@@ -90,7 +105,7 @@ export default {
                     }
                 },
                 top:'6%',
-                left:'6%',
+                left:'13%',
                 roam: false,
                 zoom: 1.1,
                 z:80,
@@ -109,7 +124,7 @@ export default {
                 saspectScale: 0.85,
                 layoutSize: '100%',
                 top:'9%',
-                left:'6%',
+                left:'13%',
                 label: {
                     normal: {
                         show: false,
@@ -138,7 +153,7 @@ export default {
 
                 layoutSize: '100%',
                 top:'12%',
-                left:'6%',
+                left:'13%',
                 label: {
                     normal: {
                         show: false,
@@ -167,7 +182,7 @@ export default {
 
                 layoutSize: '100%',
                 top:'15%',
-                left:'6%',
+                left:'13%',
                 label: {
                     normal: {
                         show: false,
@@ -202,7 +217,7 @@ export default {
                     }
                 },
                 top:'6%',
-                left:'6%',
+                left:'13%',
                 roam: false,
                 zoom: 1.1,
                 itemStyle: {
@@ -222,8 +237,8 @@ export default {
             borderWidth:2,
             borderColor:'#0265b0',
             itemWidth:12,
-            left:'41%',
-            bottom:'11%',
+            right:'3%',
+            bottom:'10%',
             textStyle:{
                 rich:{
                     a:{
@@ -284,10 +299,48 @@ export default {
             ],
             
         },
-        tooltip : {},
+        tooltip : {
+            show:true,
+            alwaysShowContent:true,
+            triggerOn: "click",
+            backgroundColor:"transparent",
+            borderWidth:0,
+            padding:0,
+            extraCssText: 'box-shadow: 0 0 0px rgba(0, 0, 0, 0)',
+            position: function (pos, params, dom, rect, size) {
+                let x = pos[0]
+                let y = pos[1]
+                dom.style.transform = 'translateZ(0)'
+                return [rect.x+10,rect.y-100];
+            },
+            formatter:function(params){
+                console.log(params)
+                let result = '';
+                if(params.componentSubType == "scatter" && params.componentType == "series"){
+                    result += `<div class="vvv" style="width:282px;height:145px;box-sizing:border-box;background:url(${that.Bg}) center no-repeat;padding-top:7px;padding-left:73px;">
+                    <span style="font-size:14px;color:#ffffff;display:block;text-align:left;">场站名称</span>
+                    <div style="overflow:hidden;">
+                        <div style="width:90px;height:90px;float:left;margin-top:15px;display:flex;justify-content:center;align-items:center;flex-direction: column;background:url(${that.Pic}) center no-repeat;">
+                            <div style="font-size:14px;color:#ffffff;line-height: 14px;padding-top: 5px;">15.74%</div>
+                            <div style="font-size:12px;color:#ffffff;transform: scale(0.8);line-height: 14px;">业务进度</div>
+                        </div>
+                        <div style="float:left;padding-left:18px;padding-top:20px;">
+                            <div style="font-size:12px;color:#a5c9e5;text-align:left;line-height: 14px;">状态</div>
+                            <div style="font-size:14px;color:#4bfefc;text-align:left;padding-bottom:8px;">正常使用</div>
+                            <div style="font-size:12px;color:#a5c9e5;text-align:left;line-height: 14px;">地址</div>
+                            <div style="font-size:14px;color:#4bfefc;text-align:left;">正常使用</div>
+                        </div>
+                    </div></div>`
+                    return result
+                }else{
+                    return result
+                }
+            }
+
+        },
         grid:{
             containLabel:true,
-            },
+        },
         series: [     
             {
                 name: '红外接入',
@@ -312,17 +365,16 @@ export default {
                 symbolSize: function(val) {
                     return 12
                 },
-                tooltip:{
-                    position: function (pos, params, dom, rect, size) {
-                        console.log(pos,params,dom,rect,size)
-                        let x = pos[0]
-                        let y = pos[1]
-                        return [rect.x+15,rect.y-100];
-                    },
-                    formatter:function(params){
+                // tooltip:{
+                //     position: function (pos, params, dom, rect, size) {
+                //         let x = pos[0]
+                //         let y = pos[1]
+                //         return [rect.x+15,rect.y-100];
+                //     },
+                //     formatter:function(params){
 
-                    }
-                },
+                //     }
+                // },
                 showEffectOn: 'render', //加载完毕显示特效
             },
             {
@@ -342,14 +394,13 @@ export default {
                 symbolSize: function(val) {
                     return 12
                 },
-                tooltip:{
-                    position: function (pos, params, dom, rect, size) {
-                        console.log(pos,params,dom,rect,size)
-                        let x = pos[0]
-                        let y = pos[1]
-                        return [rect.x+15,rect.y-100];
-                    },
-                },
+                // tooltip:{
+                //     position: function (pos, params, dom, rect, size) {
+                //         let x = pos[0]
+                //         let y = pos[1]
+                //         return [rect.x+15,rect.y-100];
+                //     },
+                // },
                 showEffectOn: 'render', //加载完毕显示特效
                 
             },
@@ -371,70 +422,78 @@ export default {
                     return 12
                 },
                 showEffectOn: 'render', //加载完毕显示特效
-                tooltip:{
-                    position: function (pos, params, dom, rect, size) {
-                        console.log(pos,params,dom,rect,size)
-                        let x = pos[0]
-                        let y = pos[1]
-                        return [rect.x+15,rect.y-100];
-                    },
-                }
+                // tooltip:{
+                //     show:'false',
+                //     backgroundColor:"transparent",
+                //     borderWidth:0,
+                //     padding:0,
+                //     extraCssText: 'box-shadow: 0 0 0px rgba(0, 0, 0, 0)',
+                //     position: function (pos, params, dom, rect, size) {
+                //         let x = pos[0]
+                //         let y = pos[1]
+                //         return [rect.x+10,rect.y-100];
+                //     },
+                //     formatter:function(params){
+                //         let result = `<div style="width:282px;height:145px;box-sizing:border-box;background:url(${that.Bg}) center no-repeat;"></div>`
+                //         return result
+                //     }
+                // }
             },
-            {
-                name: "报警点位",
-                type: "scatter",
-                coordinateSystem: "geo",
-                hoverAnimation: false,
-                symbolSize: [24, 30],
-                tooltip:{
-                    confine:true
-                },
-                label: {
-                    show: true,
-                    width:212,
-                    height:145,
-                    position: [18, -85],
-                    padding:[0,0,0,70],
-                    color: "#fff",
-                    confine:true,
-                    backgroundColor: {
-                        image: that.Bg
-                    },
-                    rich:{
-                        a:{
-                            fontSize:14,
-                            verticalAlign:'center',
-                            align:'left',
-                            padding:[12,0,16,4],
-                        },
-                        b:{
-                            backgroundColor: {
-                                image: that.Pic,
-                            },
-                            width:90,
-                            height:90,
-                            align:'left',
-                        }
-                    },
-                    formatter:  (name)=>{
-                        let arr = [
-                            '{a|'+name.seriesName+'}',
-                            '{b|}',
-                        ]
-                        return `{a|${name.seriesName}}\n{b|}{c|状态\n{b|这么}}`
-                    }, 
-                    borderRadius: 6,
-                },
-                z:99,
-                data: [{
-                        name: "点位9",
-                        value: [125, 30.218085],
-                        alarmType: '类型1',
-                        alarmTime: '2020-12-1 12:00',
-                        alarmCount: '3'
-                    },
-                ]
-            }
+            // {
+            //     name: "报警点位",
+            //     type: "scatter",
+            //     coordinateSystem: "geo",
+            //     hoverAnimation: false,
+            //     symbolSize: [24, 30],
+            //     tooltip:{
+            //         confine:true
+            //     },
+            //     label: {
+            //         show: true,
+            //         width:212,
+            //         height:145,
+            //         position: [18, -85],
+            //         padding:[0,0,0,70],
+            //         color: "#fff",
+            //         confine:true,
+            //         backgroundColor: {
+            //             image: that.Bg
+            //         },
+            //         rich:{
+            //             a:{
+            //                 fontSize:14,
+            //                 verticalAlign:'center',
+            //                 align:'left',
+            //                 padding:[12,0,16,4],
+            //             },
+            //             b:{
+            //                 backgroundColor: {
+            //                     image: that.Pic,
+            //                 },
+            //                 width:90,
+            //                 height:90,
+            //                 align:'left',
+            //             }
+            //         },
+            //         formatter:  (name)=>{
+            //             let arr = [
+            //                 '{a|'+name.seriesName+'}',
+            //                 '{b|}',
+            //             ]
+            //             return `{a|${name.seriesName}}\n{b|}{c|状态\n{b|这么}}`
+            //         }, 
+            //         borderRadius: 6,
+            //     },
+            //     z:99,
+            //     data: [{
+            //             name: "点位9",
+            //             value: [125, 30.218085],
+            //             alarmType: '类型1',
+            //             alarmTime: '2020-12-1 12:00',
+            //             alarmCount: '3'
+            //         },
+            //     ]
+            // }
         ]
     };
         myChart.setOption(that.option);
@@ -444,11 +503,14 @@ export default {
         //             dataIndex: 0 //第几个tooltip
         //         });
                 // 高亮指定的散点
+        
+        this.$refs.aaa.addEventListener("click",() => {
+            document.getElementsByClassName('vvv')[0].setAttribute('style', 'display:none')
+        })
         myChart.on("click", params => {
             if (params.componentType === "series" && params.componentSubType === "scatter") {
                 const index = params.dataIndex;
-                that.option.series.push()
-            myChart.setOption(that.option);
+                console.log(params)
                 // 取消所有散点高亮
                 // that.myChart.dispatchAction({
                 //     type: "downplay",
@@ -468,6 +530,9 @@ export default {
                 // });
             }
         });
+    },
+    aaa(){
+        console.log("1111")
     }
   }
 }
@@ -477,11 +542,11 @@ export default {
 <style scoped>
 .wrap-map{
     position: relative;
-    width: 100%;
+    width: 51%;
     height:830px;
 }
 .echarts-map{
-    width:51%;
+    width:100%;
     height:830px;
     background: url(../assets/bg-04.png) top left no-repeat;
     background-size: 100%;
@@ -489,6 +554,44 @@ export default {
     left: 0;
     top: 0;
 }
-
+.map-nav{
+    position: absolute;
+    z-index: 9999;
+    width: 300px;
+    height: 75px;
+    left: 33%;
+    top: 0;
+    background: url(../assets/btn-02.png) center no-repeat;
+}
+.map-nav span{
+    font-size: 16px;
+    color: #ffffff;
+    display: inline-block;
+    padding-top: 36px;
+    text-align: center;
+}
+.overviewdata{
+    width: 168px;
+    height: 78px;
+    background:url(../assets/pic-05.png) center no-repeat;
+    background-size: 100%;
+    position: absolute;
+    z-index: 9999;
+    left: 5%;
+    top: 1%;
+}
+.aaa{
+    width:282px;
+    height:145px;
+    box-sizing:border-box;
+    background:url(../assets/bg-03.png) center no-repeat;
+    position:relative;
+    z-index:9999;
+    padding-top:7px;
+    padding-left:73px;
+}
+.bbb{
+    background:url(../assets/pic-04.png) center no-repeat;
+}
 </style>
 

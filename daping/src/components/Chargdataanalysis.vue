@@ -29,7 +29,7 @@ export default {
     name:'Cgdataanalysis',
     data(){
         return{
-            myChart:'',
+            
         }
     },
     mounted(){
@@ -38,7 +38,7 @@ export default {
     methods:{
         lineDraw(){
              //初始化ehcharts实例
-            let myChart=echarts.init(document.getElementById("Cgdataanalysis"));
+            let myChartanalysis=echarts.init(document.getElementById("Cgdataanalysis"));
             //指定图表的配置项和数据
             var option = {
     backgroundColor: 'transparent',
@@ -226,7 +226,7 @@ export default {
     ]
 }
             //使用刚刚指定的配置项和数据项显示图表
-            myChart.setOption(option);
+            myChartanalysis.setOption(option);
         }
     }
 }
