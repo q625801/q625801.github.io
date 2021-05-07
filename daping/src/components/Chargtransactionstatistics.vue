@@ -484,6 +484,7 @@ export default {
     position: absolute;
     top: 17px;
     left: 17px;
+        font-size: initial;
 }
 .analysis-btn span{
     width: 88px;
