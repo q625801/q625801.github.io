@@ -9,7 +9,7 @@
         <div ref="aaa" class="map-nav">
            <span>全国站点总览</span>
         </div>
-        <div class="overviewdata"></div>
+        <div class="overviewdata" ref="viewChina" v-show="viewChina"></div>
     </div>
   
 </template>
@@ -37,16 +37,17 @@ export default {
       option:'',
       regions:regionColor,
       Bg:Bg,
-      Pic:Pic
+      Pic:Pic,
+      viewChina:false,
     }
   },
   mounted(){
     this.drawMap();
   },
   methods: {
-      lookVideoGo(){
-          console.log("1111")
-      },
+    lookVideoGo(){
+        console.log("1111")
+    },
     drawMap(){
         let that = this;
         let myChart=echarts.init(document.getElementById("myChart"));
@@ -89,8 +90,9 @@ export default {
             city: "河北省",
             }
         ]
-    that.option = {
+    let option = {
         backgroundColor: "transparent",
+        
         geo: [
             {
                 show: true,
@@ -104,17 +106,23 @@ export default {
                         show: false
                     }
                 },
-                top:'6%',
-                left:'13%',
+                // top:'6%',
+                // left:'13%',
+                layoutCenter: ['50%', '46%'],
+                layoutSize: '105%',
                 roam: false,
                 zoom: 1.1,
                 z:80,
+                animation:false,
                 itemStyle: {
                     normal: {
+                        // areaColor:'#1667ab',
                         borderWidth: 1, // 区域边框宽度
                         borderColor: "#49a6e1", // 区域边框颜色
                     },
-                    
+                    // emphasis: {
+                    //     areaColor:'#1667ab',
+                    // }
                 },
                 regions: that.regions
             },
@@ -122,9 +130,10 @@ export default {
                 show: true,
                 map: "china",
                 saspectScale: 0.85,
-                layoutSize: '100%',
-                top:'9%',
-                left:'13%',
+                // top:'9%',
+                // left:'13%',
+                layoutCenter: ['50%', '50%'],
+                layoutSize: '105%',
                 label: {
                     normal: {
                         show: false,
@@ -135,6 +144,7 @@ export default {
                     }
                 },
                 roam: false,
+                animation: false,
                 zoom: 1.1,
                 itemStyle: {
                     normal: {
@@ -150,10 +160,10 @@ export default {
                 show: true,
                 map: "china",
                 saspectScale: 0.85,
-
-                layoutSize: '100%',
-                top:'12%',
-                left:'13%',
+                // top:'12%',
+                // left:'13%',
+                layoutCenter: ['50%', '53%'],
+                layoutSize: '105%',
                 label: {
                     normal: {
                         show: false,
@@ -164,6 +174,7 @@ export default {
                     }
                 },
                 roam: false,
+                animation: false,
                 zoom: 1.1,
                 itemStyle: {
                     normal: {
@@ -179,10 +190,10 @@ export default {
                 show: true,
                 map: "china",
                 saspectScale: 0.85,
-
-                layoutSize: '100%',
-                top:'15%',
-                left:'13%',
+                // top:'15%',
+                // left:'13%',
+                layoutCenter: ['50%', '56%'],
+                layoutSize: '105%',
                 label: {
                     normal: {
                         show: false,
@@ -193,6 +204,7 @@ export default {
                     }
                 },
                 roam: false,
+                animation: false,
                 zoom: 1.1,
                 itemStyle: {
                     normal: {
@@ -216,9 +228,12 @@ export default {
                         show: false
                     }
                 },
-                top:'6%',
-                left:'13%',
+                // top:'6%',
+                // left:'13%',
+                layoutCenter: ['50%', '46%'],
+                layoutSize: '105%',
                 roam: false,
+                animation: false,
                 zoom: 1.1,
                 itemStyle: {
                     normal: {
@@ -301,7 +316,7 @@ export default {
         },
         tooltip : {
             show:true,
-            alwaysShowContent:true,
+            // alwaysShowContent:true,
             triggerOn: "click",
             backgroundColor:"transparent",
             borderWidth:0,
@@ -314,7 +329,6 @@ export default {
                 return [rect.x+10,rect.y-100];
             },
             formatter:function(params){
-                console.log(params)
                 let result = '';
                 if(params.componentSubType == "scatter" && params.componentType == "series"){
                     result += `<div class="vvv" style="width:282px;height:145px;box-sizing:border-box;background:url(${that.Bg}) center no-repeat;padding-top:7px;padding-left:73px;">
@@ -354,27 +368,11 @@ export default {
                         opacity:1
                     }
                 },
-                // rippleEffect: {
-                //     period: 4,
-                //     brushType: 'fill',
-                //     scale: 3,
-                //     color:'rgba(255,192,0,0.4)'
-                // },
                 data: hwdata,
                 z:2000,
                 symbolSize: function(val) {
                     return 12
                 },
-                // tooltip:{
-                //     position: function (pos, params, dom, rect, size) {
-                //         let x = pos[0]
-                //         let y = pos[1]
-                //         return [rect.x+15,rect.y-100];
-                //     },
-                //     formatter:function(params){
-
-                //     }
-                // },
                 showEffectOn: 'render', //加载完毕显示特效
             },
             {
@@ -394,13 +392,6 @@ export default {
                 symbolSize: function(val) {
                     return 12
                 },
-                // tooltip:{
-                //     position: function (pos, params, dom, rect, size) {
-                //         let x = pos[0]
-                //         let y = pos[1]
-                //         return [rect.x+15,rect.y-100];
-                //     },
-                // },
                 showEffectOn: 'render', //加载完毕显示特效
                 
             },
@@ -422,22 +413,6 @@ export default {
                     return 12
                 },
                 showEffectOn: 'render', //加载完毕显示特效
-                // tooltip:{
-                //     show:'false',
-                //     backgroundColor:"transparent",
-                //     borderWidth:0,
-                //     padding:0,
-                //     extraCssText: 'box-shadow: 0 0 0px rgba(0, 0, 0, 0)',
-                //     position: function (pos, params, dom, rect, size) {
-                //         let x = pos[0]
-                //         let y = pos[1]
-                //         return [rect.x+10,rect.y-100];
-                //     },
-                //     formatter:function(params){
-                //         let result = `<div style="width:282px;height:145px;box-sizing:border-box;background:url(${that.Bg}) center no-repeat;"></div>`
-                //         return result
-                //     }
-                // }
             },
             // {
             //     name: "报警点位",
@@ -496,40 +471,62 @@ export default {
             // }
         ]
     };
-        myChart.setOption(that.option);
-        // myChart.dispatchAction({
-        //             type: "showTip",
-        //             seriesIndex: 0, //第几条series
-        //             dataIndex: 0 //第几个tooltip
-        //         });
-                // 高亮指定的散点
-        
+        that.option = JSON.parse(JSON.stringify(option))
+        myChart.setOption(option);
+        // if(document.getElementsByClassName('vvv')[0]){
+        //     document.getElementsByClassName('vvv')[0].setAttribute('style', 'display:none')
+        // }
         this.$refs.aaa.addEventListener("click",() => {
             document.getElementsByClassName('vvv')[0].setAttribute('style', 'display:none')
         })
         myChart.on("click", params => {
+            if(params.componentType === "geo"){
+                console.log(params,"1212")
+                let option = myChart.getOption();//获得option对象
+                let mapCode = that.checkMap(params.name)
+                if(mapCode){
+                    that.viewChina = true
+                    $.getJSON(`/static/mapData/${mapCode}.json`,(data) => {
+                        echarts.registerMap(mapCode, data);
+                        option.geo.forEach((item,index) => {
+                            item.map = mapCode
+                            item.itemStyle.areaColor = "#1667ab"
+                            item.emphasis.itemStyle.areaColor = "#1667ab"
+                            item.zoom = 1
+                        })
+                        myChart.setOption(option);
+                    })
+                }
+            }
             if (params.componentType === "series" && params.componentSubType === "scatter") {
                 const index = params.dataIndex;
-                console.log(params)
-                // 取消所有散点高亮
-                // that.myChart.dispatchAction({
-                //     type: "downplay",
-                //     seriesIndex: 0 //第几条series
-                // });
-                // // 显示指定data 的tooltip
-                // that.myChart.dispatchAction({
-                //     type: "showTip",
-                //     seriesIndex: 0, //第几条series
-                //     dataIndex: index //第几个tooltip
-                // });
-                // // 高亮指定的散点
-                // that.myChart.dispatchAction({
-                //     type: "highlight",
-                //     seriesIndex: 0, //第几条series
-                //     dataIndex: index //第几个tooltip
-                // });
+                
+            }else{
+
             }
         });
+        this.$refs.viewChina.addEventListener("click",() => {
+            myChart.setOption(that.option)
+            that.viewChina = false
+        })
+    },
+    checkMap(name){
+        switch (name) {
+            case '新疆':
+                return 'xinjiang'
+                break;
+            case '河北':
+                return 'hebei'
+                break;
+            case '内蒙古':
+                return 'neimenggu'
+                break;
+            case '黑龙江':
+                return 'heilongjiang'
+                break;
+            default:
+                break;
+        }
     },
     aaa(){
         console.log("1111")
@@ -579,6 +576,7 @@ export default {
     z-index: 9999;
     left: 5%;
     top: 1%;
+    cursor: pointer;
 }
 .aaa{
     width:282px;
