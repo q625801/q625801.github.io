@@ -1,0 +1,12 @@
+html, body, * {font-family: "Times New Roman","微软雅黑",Arial,Helvetica,sans-serif;font-size:14px;}
+body{ color: #54534a;background: #f6f6f6;/*-webkit-animation: fadeIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87);-moz-animation: fadeIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87);-o-animation: fadeIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87);animation: fadeIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87);*/}
+a{color:#54534a;}
+a,a:hover,a:focus{text-decoration: none;}
+img{border: 0;vertical-align: middle;max-width: 100%;-ms-interpolation-mode:bicubic;}
+ul{list-style: none;padding: 0;margin: 0;}
+::-webkit-scrollbar-track-piece {background-color: rgba(0, 0, 0, 0);border-left: 1px solid rgba(0, 0, 0, 0);}
+::-webkit-scrollbar {width: 5px;height: 13px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+::-webkit-scrollbar-thumb {background-color: rgba(0, 0, 0, 0.5);background-clip: padding-box;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;min-height: 28px;}
+::-webkit-scrollbar-thumb:hover {background-color: rgba(0, 0, 0, 0.5);-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+.trans{-webkittransition: all .5s ease;-moz-transition: all .5s ease;-o-transition: all .5s ease;-ms-transition: all .5s ease;transition: all .5s ease;}
+:focus{outline: 0;}
