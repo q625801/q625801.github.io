@@ -36,7 +36,7 @@
     var remoteVideo2 = document.querySelector('video#remoteVideo2');
     var localStream=null;
     $(function(){
-        getUserMedia({video: true, audio: true}, function(stream) {
+        getUserMedia({video: true, audio: false}, function(stream) {
             localStream=stream;
             localVideo.srcObject = stream;
             localVideo.autoplay = true;
