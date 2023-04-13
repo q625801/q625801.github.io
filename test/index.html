@@ -103,6 +103,7 @@
             console.log(remoteVideo,index+1)
             remoteVideo.srcObject = remoteStream;
             remoteVideo.autoplay = true;
+            remoteVideo.play();
         });
         call.on('close', function() {
             console.log("call close");
