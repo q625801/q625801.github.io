@@ -45,16 +45,7 @@
             console.log('Failed to get local stream' ,err);
         });
  
-        var peer = new Peer('',{
-            config: {'iceServers': [
-                { url: 'stun:stun.l.google.com:19302' },
-                {
-                    url: 'turn:47.98.144.20:3478',
-                    credential: 'li123',
-                    username: 'li'
-                },
-            ]}
-        });
+        var peer = new Peer();
         peer.on('open', function(id) {
             $("#myPeerid").val(id);
         });
