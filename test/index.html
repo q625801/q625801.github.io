@@ -87,6 +87,8 @@
     function createP2P(peer,remoteId,index){
         var call = peer.call(remoteId,localStream);
         const conn = peer.connect(remoteId);
+        console.log(conn)
+        console.log(peer,remoteId)
         conn.on("open", () => {
             conn.send("hi!");
         });
