@@ -45,19 +45,11 @@
             console.log('Failed to get local stream' ,err);
         });
  
-        var peer = new Peer('',{
-            iceServers: [
-                { url: "stun:stun.l.google.com:19302" },
-                { url: "stun:stun1.l.google.com:19302" },
-                { url: "stun:stun2.l.google.com:19302" },
-                { url: "stun:stun3.l.google.com:19302" },
-                { url: "stun:stun4.l.google.com:19302" },
-                {
-                url: "turn:47.98.144.20:3478",
-                credential: "li123",
-                username: "li",
-                },
-            ],
+        var peer = new Peer({
+            config: {'iceServers': [
+                { url: 'stun:47.98.144.20:3478?transport=udp' },
+                { url: 'turn:47.98.144.20:3478', credential: 'yunjia01',username: "yunjia01" }
+            ]} /* Sample servers, please use appropriate ones */
         });
         peer.on('open', function(id) {
             $("#myPeerid").val(id);
